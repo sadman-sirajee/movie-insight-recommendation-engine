@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: movieinsight-api
+    runtime: python
+    buildCommand: "pip install -r requirements.txt && python scripts/run_pipeline.py"
+    startCommand: "uvicorn api.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: DEFAULT_TOP_N
+        value: "10"
+      - key: TFIDF_MAX_FEATURES
+        value: "10000"
